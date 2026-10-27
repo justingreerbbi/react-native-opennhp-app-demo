@@ -7,8 +7,43 @@ A React Native app for testing server linking, device registration, and access r
 
 **Repository:** [justingreerbbi/react-native-opennhp-app-demo](https://github.com/justingreerbbi/react-native-opennhp-app-demo)
 
+## App preview
+
+Link a server, choose a registration method, and register the device with an email verification code.
+
+<table>
+  <thead>
+    <tr>
+      <th width="33%">Dashboard</th>
+      <th width="33%">Linked server</th>
+      <th width="33%">OTP registration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <a href="docs/images/dashboard.png"><img src="docs/images/dashboard.png" alt="OpenNHP dashboard with QR scanning and manual server setup options" width="260" /></a>
+      </td>
+      <td align="center" valign="top">
+        <a href="docs/images/linked-server.png"><img src="docs/images/linked-server.png" alt="Linked OpenNHP server with OTP and manual registration options" width="260" /></a>
+      </td>
+      <td align="center" valign="top">
+        <a href="docs/images/otp-registration.png"><img src="docs/images/otp-registration.png" alt="Email registration screen for requesting a one-time verification code" width="260" /></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><a href="#configure-a-server">Scan or enter server details</a></td>
+      <td align="center"><a href="#register-a-device">Choose a registration method</a></td>
+      <td align="center"><a href="#register-a-device">Request an email code</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<sub>Screenshots show an earlier demo build; current labels may differ. Select an image to view it at full size.</sub>
+
 ## Contents
 
+- [App preview](#app-preview)
 - [Requirements](#requirements)
 - [Download and install](#download-and-install)
 - [Build for iOS](#build-for-ios)
@@ -248,6 +283,7 @@ Run these from the project root:
 | `src/connection.ts` | Demo service defaults, cluster/organization IDs, and site URL behavior. |
 | `src/ui/` | Shared UI components and theme. |
 | `__tests__/` | Automated tests. |
+| `docs/images/` | Screenshots used in this README. |
 | `ios/` | Xcode workspace, project, and CocoaPods configuration. |
 | `android/` | Android project and Gradle wrapper. |
 
