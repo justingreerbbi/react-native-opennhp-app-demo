@@ -39,7 +39,7 @@ Link a server, choose a registration method, and register the device with an ema
   </tbody>
 </table>
 
-<sub>Screenshots show an earlier demo build; current labels may differ. Select an image to view it at full size.</sub>
+<sub>Select an image to view it at full size.</sub>
 
 ## Contents
 
@@ -213,6 +213,29 @@ Follow its [Quickstart](https://github.com/OpenNHP/OpenNHP-Ubuntu-Installer#quic
 4. Review the server settings and choose **Link Server**. This button appears only when the required details are valid.
 
 Settings are stored on the device. Use **Unlink Server** under **Server & Device Details** to remove the linked server and its saved registration.
+
+<table>
+  <thead>
+    <tr>
+      <th width="50%">Confirm scanned details</th>
+      <th width="50%">Review before linking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" valign="top">
+        <a href="docs/images/qr-confirmation.png"><img src="docs/images/qr-confirmation.png" alt="QR confirmation modal showing server address, port, service, resource, and server key" width="260" /></a>
+      </td>
+      <td align="center" valign="top">
+        <a href="docs/images/server-review.png"><img src="docs/images/server-review.png" alt="Server setup with scanned connection details and the Link Server button" width="260" /></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">Verify the scanned information before accepting it.</td>
+      <td align="center">Link the server after reviewing its details.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### QR package format
 
