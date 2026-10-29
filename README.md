@@ -41,6 +41,13 @@ Link a server, choose a registration method, and register the device with an ema
 
 <sub>Select an image to view it at full size.</sub>
 
+## Implementation guide
+
+For a source-level walkthrough of server provisioning, secure device keys, OTP
+registration, native SDK calls, and resource knocks, read the
+[OpenNHP implementation guide](docs/opennhp-implementation.md). It includes flow
+diagrams, call graphs, storage tables, and custom authentication extension points.
+
 ## Contents
 
 - [App preview](#app-preview)
@@ -54,6 +61,7 @@ Link a server, choose a registration method, and register the device with an ema
 - [Project structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
 - [Contributing and community](#contributing-and-community)
+- [Implementation guide](#implementation-guide)
 - [Development notes](#development-notes)
 
 ## Requirements

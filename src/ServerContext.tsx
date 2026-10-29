@@ -1,3 +1,7 @@
+/**
+ * React state for one locally linked server. linked means valid saved settings,
+ * not a connected/authenticated NHP session. App.tsx uses it to select a stack.
+ */
 import React, {
   createContext,
   useCallback,
@@ -44,6 +48,7 @@ export function ServerProvider({children}: {children: React.ReactNode}) {
     };
   }, []);
 
+  // Persist settings and switch navigation; intentionally no network operation.
   const link = useCallback(async (next: ServerConfig) => {
     const safe = sanitizeServerConfig(next);
     if (!safe) {
@@ -53,6 +58,9 @@ export function ServerProvider({children}: {children: React.ReactNode}) {
     setConfig(safe);
   }, []);
 
+  // Local teardown only: stop the native agent and remove settings/receipt.
+  // Secure-store key, device ID, and generated TOML remain. No NHP-EXT or remote
+  // deregistration is sent, so this is not immediate server-side revocation.
   const unlink = useCallback(async () => {
     try {
       await close();

@@ -1,3 +1,8 @@
+/**
+ * Provisioning boundary: validate untrusted QR/manual/disk input and persist one
+ * linked NHP peer in server.json. Keys here are public. Format validation does
+ * not authenticate QR ownership or establish network connectivity.
+ */
 import {
   DocumentDirectoryPath,
   exists,
@@ -7,6 +12,9 @@ import {
 } from '@dr.pogodin/react-native-fs';
 import {getDefaultWorkingDirectory} from 'react-native-opennhp';
 
+/** host/port target the NHP UDP listener, not the protected application's URL.
+ * Missing service/resource IDs fall back to connection.ts at operation time.
+ */
 export type ServerConfig = {
   host: string;
   port: number;
@@ -35,10 +43,12 @@ function configPath(): string {
 const KEY_RE = /^[A-Za-z0-9+/]{42}[AEIMQUYcgkosw048]=$/;
 const ID_RE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
 
+/** Encoding/length validation for this app's Curve25519 provisioning format. */
 export function isValidPubkey(key: string): boolean {
   return KEY_RE.test(key.trim());
 }
 
+// Accept DNS names and IPv4 only. Schemes, paths, ports, and IPv6 are rejected.
 function cleanHost(value: unknown): string | null {
   if (typeof value !== 'string') {
     return null;
@@ -84,6 +94,7 @@ export function sanitizeServerConfig(value: unknown): ServerConfig | null {
   return config;
 }
 
+/** Invalid or unreadable saved settings behave as an unlinked installation. */
 export async function getServerConfig(): Promise<ServerConfig | null> {
   const path = configPath();
   if (!(await exists(path))) {
@@ -97,6 +108,7 @@ export async function getServerConfig(): Promise<ServerConfig | null> {
   return null;
 }
 
+/** Save local peer settings only; no handshake, enrollment, or knock occurs. */
 export async function setServerConfig(config: ServerConfig): Promise<void> {
   const safe = sanitizeServerConfig(config);
   if (!safe) {
@@ -112,8 +124,14 @@ export async function clearServerConfig(): Promise<void> {
   }
 }
 
-// Version 1 provisioning package, legacy JSON, or a bare public key.
-// Bound input size before parsing and never coerce untrusted field types.
+/**
+ * Parse version-1 provisioning JSON, legacy complete JSON, or a bare key.
+ * A bare key returns partial settings that setup must complete before linking.
+ * Version 1 requires service/resource IDs; legacy JSON permits their omission.
+ * Unknown fields and ambiguous legacy key aliases are rejected. Bound input
+ * size before parsing and never coerce untrusted field types. No signatures or
+ * network ownership checks are performed; the user reviews the parsed details.
+ */
 export function parseServerPayload(text: string): Partial<ServerConfig> | null {
   if (text.length > 4096) {
     return null;

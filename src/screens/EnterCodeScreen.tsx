@@ -34,6 +34,8 @@ export default function EnterCodeScreen({
 
   const codeValid = /^\d{6}$/.test(code.trim());
 
+  // NHP-REG stage. submitRegistration persists the enrollment receipt only
+  // after server success; dashboard focus reloads it. No resource knock here.
   async function onRegister() {
     if (!codeValid || !deviceId) {
       Alert.alert(

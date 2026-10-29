@@ -11,6 +11,9 @@ export default function ManualRegisterScreen({navigation}: AppScreenProps<'Manua
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
 
+  // Generate/load and display a PUBLIC key for out-of-band administration.
+  // This screen sends no registration request, saves no receipt, and does not
+  // poll the server; dashboard access still depends on the OTP receipt flow.
   useEffect(() => {
     let active = true;
     devicePublicKey().then(key => {

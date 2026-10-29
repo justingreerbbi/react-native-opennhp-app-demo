@@ -24,6 +24,7 @@ const screenOptions = {
   contentStyle: { backgroundColor: colors.bg },
 };
 
+// Navigation follows local provisioning, not live server authorization.
 function Root() {
   const { linked, loading } = useServer();
 

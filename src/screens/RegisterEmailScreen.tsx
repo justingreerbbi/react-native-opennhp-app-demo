@@ -33,6 +33,8 @@ export default function RegisterEmailScreen({
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
+  // NHP-OTP stage only. Navigation carries email, not a private key or OTP;
+  // the user enters the delivered code on the next screen.
   async function onSend() {
     if (!emailValid || !deviceId) {
       Alert.alert(

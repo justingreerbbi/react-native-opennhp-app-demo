@@ -57,6 +57,8 @@ export default function ServerSetupScreen({
   }) : null;
   const valid = safeConfig !== null;
 
+  // Linking is a local save. A well-formed address/key may still be unreachable
+  // or untrusted; registration/knock are the later server interactions.
   async function onLink() {
     if (!safeConfig) {
       Alert.alert(

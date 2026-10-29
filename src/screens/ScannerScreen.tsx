@@ -35,6 +35,9 @@ export default function ScannerScreen({
     }
   }, [hasPermission, requested, requestPermission]);
 
+  // QR -> validated pending settings -> user review -> setup form. Scanning
+  // never contacts NHP or automatically links/registers the device. handled
+  // prevents repeated camera frames from opening duplicate review flows.
   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: codes => {

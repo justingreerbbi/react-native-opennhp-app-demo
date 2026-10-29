@@ -43,6 +43,8 @@ export default function DashboardScreen({
   const [tone, setTone] = useState<'muted' | 'success' | 'danger'>('muted');
   const [ready, setReady] = useState(false);
 
+  // Re-read the enrollment receipt when returning from registration. This is
+  // a local readiness check; only the subsequent knock asks the server for access.
   const refresh = useCallback(async () => {
     setReady(false);
     setTone('muted');
@@ -73,6 +75,8 @@ export default function DashboardScreen({
     }, [refresh]),
   );
 
+  // One user action -> one native knock -> browser launch on explicit success.
+  // No loop, expiry timer, API request, or background renewal is started here.
   async function onKnock() {
     if (!registeredEmail || !config) {
       return;
@@ -85,6 +89,8 @@ export default function DashboardScreen({
       if (String(ack.errCode) === '0') {
         setTone('success');
         setStatus('Access granted. Opening site…');
+        // Demo destination ignores ACK resHost/redirectUrl/opnTime. NHP grants
+        // network access; this separate browser connection carries website traffic.
         await Linking.openURL(siteUrl(config.host));
       } else {
         setTone('danger');
